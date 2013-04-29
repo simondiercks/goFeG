@@ -7,7 +7,7 @@
   <script type="text/javascript" src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.js"></script>
   <link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.css">
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&language=de"></script>
-  <script type='text/javascript' src="http://z.sese.de/ul/uploads/gmap3.js"></script>
+  <script type='text/javascript' src="http://z.sese.de/gofeg/gmap3.js"></script>
   <style type='text/css'>
     #map{
  height: 350px;
@@ -17,12 +17,27 @@
   
 
 <script type='text/javascript'>
-$(window).load(function(){
+    
+function jsoncallback( data ) {
+    if (data.success) {
+        fegmarker = {"values":[]};
+        $.each( data.data, function( key, value ) {
+            $('#liste').append(
+                $('<li>').append(value.data)
+            );
+            fegmarker.values.push(value);
+        });
+        console.dir(fegmarker);
 	$('#map').show().gmap3({
-		marker:{
-			address: "Christinastr. 5, Jülich"
-		},
+                options:{
+                   zoom:4,
+                   navigationControl: true,
+                   scrollwheel: true,
+                   streetViewControl: true
+                },		
+                marker:fegmarker,
 		autofit:{},
+                /**
 		getgeoloc:{
 			callback : function(latLng){
 			  if (latLng){
@@ -70,8 +85,16 @@ $(window).load(function(){
 			  $("#test").html( html );
 			}
 		}
+                */
 		
 	}).css('border', '1px solid #000000');
+    } else {
+        alert('Keine Gemeinden gefunden. Bitte erweitere den Umkreis.');
+    } 
+}
+        
+$(window).load(function(){
+        $.getJSON("http://z.sese.de/gofeg/go.php?jsoncallback=?");
 }); 
 
 function showDir() {
@@ -152,10 +175,7 @@ $("test").gmap3({
                    <input type="range" name="slider" id="slider-0" value="25" min="0" max="200"  />
                 </form>
                 <p>FeGn in Deiner Nähe:</p>
-                <ul data-role="listview" data-inset="true" data-filter="true">
-                    <li><a href="#">FeG Aachen (10km)</a></li>
-                    <li><a href="#" onclick="showDir();">FeG Jülich</a> <span id="test"></span></li>
-                    <li><a href="#">FeG Eupen (50km)</a></li>
+                <ul id="liste" data-role="listview" data-inset="true" data-filter="true">
                 </ul>
                 <a href="#" id="go" data-role="button">Zeige die Karte meiner Umgebung</a>
             </div>
