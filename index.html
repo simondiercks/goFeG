@@ -21,9 +21,120 @@ $(window).load(function(){
 	$('#map').show().gmap3({
 		marker:{
 			address: "Christinastr. 5, Jülich"
-		}		 
+		},
+		autofit:{},
+		getgeoloc:{
+			callback : function(latLng){
+			  if (latLng){
+				$(this).gmap3({
+				  marker:{ 
+					latLng:latLng
+				  },
+				  map:{
+					options:{
+					  zoom: 5
+					}
+				  }
+				});
+			  }
+			}
+		},
+		getdistance:{
+			options:{ 
+			  origins:["Marseille"], 
+			  destinations:["Paris"],
+			  travelMode: google.maps.TravelMode.DRIVING
+			},
+			callback: function(results, status){
+			  var html = "";
+			  if (results){
+				for (var i = 0; i < results.rows.length; i++){
+				  var elements = results.rows[i].elements;
+				  for(var j=0; j<elements.length; j++){
+					switch(elements[j].status){
+					  case "OK":
+						html += elements[j].distance.text + " (" + elements[j].duration.text + ")<br />";
+						break;
+					  case "NOT_FOUND":
+						html += "The origin and/or destination of this pairing could not be geocoded<br />";
+						break;
+					  case "ZERO_RESULTS":
+						html += "No route could be found between the origin and destination.<br />";
+						break;
+					}
+				  }
+				} 
+			  } else {
+				html = "error";
+			  }
+			  $("#test").html( html );
+			}
+		}
+		
 	}).css('border', '1px solid #000000');
 }); 
+
+function showDir() {
+	$("#map").gmap3({ 
+	  getroute:{
+		options:{
+			origin:"jülich",
+			destination:"hamburg",
+			travelMode: google.maps.DirectionsTravelMode.DRIVING
+		},
+		callback: function(results){
+		  if (!results) return;
+		  $(this).gmap3({
+			map:{
+			  options:{
+				zoom: 13,  
+				center: [-33.879, 151.235]
+			  }
+			},
+			directionsrenderer:{
+			  options:{
+				directions:results
+			  } 
+			}
+		  });
+		}
+	  }
+	});
+}
+
+$("test").gmap3({
+  getdistance:{
+    options:{ 
+      origins:["Marseille"], 
+      destinations:["Paris"],
+      travelMode: google.maps.TravelMode.DRIVING
+    },
+    callback: function(results, status){
+      var html = "";
+      if (results){
+        for (var i = 0; i < results.rows.length; i++){
+          var elements = results.rows[i].elements;
+          for(var j=0; j<elements.length; j++){
+            switch(elements[j].status){
+              case "OK":
+                html += elements[j].distance.text;
+                break;
+              case "NOT_FOUND":
+                html += "The origin and/or destination of this pairing could not be geocoded<br />";
+                break;
+              case "ZERO_RESULTS":
+                html += "No route could be found between the origin and destination.<br />";
+                break;
+            }
+          }
+        } 
+      } else {
+        html = "error";
+      }
+      $("#test").html( html );
+    }
+  }
+});
 </script>
 
 
@@ -32,8 +143,7 @@ $(window).load(function(){
       <body>
         <div data-role="page">
             <div data-role="header">
-                	<h1>goFeG</h1>
-
+                <h1>goFeG</h1>
             </div>
             <!-- /header -->
             <div data-role="content">
@@ -44,7 +154,7 @@ $(window).load(function(){
                 <p>FeGn in Deiner Nähe:</p>
                 <ul data-role="listview" data-inset="true" data-filter="true">
                     <li><a href="#">FeG Aachen (10km)</a></li>
-                    <li><a href="#">FeG Jülich (2km)</a></li>
+                    <li><a href="#" onclick="showDir();">FeG Jülich</a> <span id="test"></span></li>
                     <li><a href="#">FeG Eupen (50km)</a></li>
                 </ul>
                 <a href="#" id="go" data-role="button">Zeige die Karte meiner Umgebung</a>
