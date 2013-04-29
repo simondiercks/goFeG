@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>goFeG - jsFiddle demo</title>
+  
+  <script type='text/javascript' src='http://code.jquery.com/jquery-2.0.0.js'></script>
+  
+  
+  
+  <script type="text/javascript" src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.css">
+  
+  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  
+    
+    
+  
+    
+    
+      <script type='text/javascript' src="http://z.sese.de/ul/uploads/jquery.ui.map.js"></script>
+    
+  
+    
+    
+      <script type='text/javascript' src="http://z.sese.de/ul/uploads/jquery.ui.map.extensions.js"></script>
+    
+  
+  <style type='text/css'>
+    
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+$(window).load(function(){
+$('#map_canvas').gmap();
+});//]]>  
+
+</script>
+
+
+</head>
+<body>
+      <body>
+        <div data-role="page">
+            <div data-role="header">
+                	<h1>goFeG</h1>
+
+            </div>
+            <!-- /header -->
+            <div data-role="content">
+                <form>
+                   <label for="slider-0">Maximale Entfernung (km):</label>
+                   <input type="range" name="slider" id="slider-0" value="25" min="0" max="200"  />
+                </form>
+                <p>FeGn in Deiner Nähe:</p>
+                <ul data-role="listview" data-inset="true" data-filter="true">
+                    <li><a href="#">FeG Aachen (10km)</a></li>
+                    <li><a href="#">FeG Jülich (2km)</a></li>
+                    <li><a href="#">FeG Eupen (50km)</a></li>
+                </ul>
+                <a href="#" id="btnInit" data-role="button">Zeige die Karte meiner Umgebung</a>
+            </div>
+            <div id="map_canvas" style="width:100%; height: 200px;">
+            </div>
+            <!-- /content -->
+        </div>
+        <!-- /page -->
+    </body>
+  
+</body>
+
+
+</html>
+
