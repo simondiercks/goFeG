@@ -7,7 +7,7 @@
   <script type="text/javascript" src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.js"></script>
   <link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.css">
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&language=de"></script>
-  <script type='text/javascript' src="http://z.sese.de/gofeg/gmap3.js"></script>
+  <script type='text/javascript' src="js/gmap3.js"></script>
   <style type='text/css'>
     #map{
  height: 350px;
@@ -21,10 +21,18 @@
 function jsoncallback( data ) {
     if (data.success) {
         fegmarker = {"values":[]};
+		$("#liste > li").remove();
         $.each( data.data, function( key, value ) {
-            $('#liste').append(
-                $('<li>').append(value.data)
-            );
+			$('#liste').append($('<li/>', {   
+				
+			}).append($('<a/>', {    
+				'href': '#',
+				'data-transition': 'slide',
+				'text': "FeG "+value.data+" ("+Math.round(value.distance)+" km)"
+			})));
+
+			$('#liste').listview('refresh');
+			value.options = {icon: "img/logo_googlemaps.png"};
             fegmarker.values.push(value);
         });
         console.dir(fegmarker);
@@ -91,12 +99,32 @@ function jsoncallback( data ) {
     } else {
         alert('Keine Gemeinden gefunden. Bitte erweitere den Umkreis.');
     } 
+	$.mobile.loading('hide');
+}
+
+function goFeG() {
+	$.mobile.loading('show');
+	$('#map').gmap3({
+	  getgeoloc:{
+		callback : function(latLng){
+		  if (latLng){
+			$(this).gmap3({
+			  marker:{ 
+				latLng:latLng
+			  }
+			});
+			$.getJSON("http://z.sese.de/gofeg/go.php?jsoncallback=?&lat="+latLng.lat()+"&lng="+latLng.lng()+"&dist="+$('#dist').val());
+		  }
+		}
+	  }
+	});
 }
         
 $(window).load(function(){
-        $.getJSON("http://z.sese.de/gofeg/go.php?jsoncallback=?");
+	goFeG();
 }); 
 
+/**
 function showDir() {
 	$("#map").gmap3({ 
 	  getroute:{
@@ -124,6 +152,7 @@ function showDir() {
 	  }
 	});
 }
+*/
 
 $("test").gmap3({
   getdistance:{
@@ -172,12 +201,12 @@ $("test").gmap3({
             <div data-role="content">
                 <form>
                    <label for="slider-0">Maximale Entfernung (km):</label>
-                   <input type="range" name="slider" id="slider-0" value="25" min="0" max="200"  />
+                   <input type="range" name="slider" id="dist" value="50" min="0" max="200"  />
                 </form>
                 <p>FeGn in Deiner Nähe:</p>
                 <ul id="liste" data-role="listview" data-inset="true" data-filter="true">
                 </ul>
-                <a href="#" id="go" data-role="button">Zeige die Karte meiner Umgebung</a>
+                <a href="#" id="go" onclick="goFeG();" data-role="button">Zeige die Karte meiner Umgebung</a>
             </div>
             <div id="map">
             </div>
