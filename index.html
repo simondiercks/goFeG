@@ -29,7 +29,7 @@ function jsoncallback( data ) {
         });
         $.each( data.data, function( key, value ) {
             $('#liste').append($('<li/>').append($('<a/>', {    
-                'href': "geo:"+value.latitude+","+value.longitude,
+                'href': "geo:"+value.latitude+","+value.longitude+"?z=5&labeltext=FeG "+value.data,
                 'data-transition': 'slide',
                 'text': "FeG "+value.data+" ("+Math.round(value.distance)+" km)"
             })));
