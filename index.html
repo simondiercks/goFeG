@@ -10,9 +10,9 @@
   <script type='text/javascript' src="js/gmap3.js"></script>
   <style type='text/css'>
     #map{
- height: 350px;
- width: 100%;
-}
+        height: 350px;
+        width: 100%;
+    }
   </style>
   
 
@@ -21,93 +21,76 @@
 function jsoncallback( data ) {
     if (data.success) {
         fegmarker = {"values":[]};
-		$("#liste > li").remove();
-        $.each( data.data, function( key, value ) {
-			$('#liste').append($('<li/>', {   
-				
-			}).append($('<a/>', {    
-				'href': '#',
-				'data-transition': 'slide',
-				'text': "FeG "+value.data+" ("+Math.round(value.distance)+" km)"
-			})));
-
-			$('#liste').listview('refresh');
-			value.options = {icon: "img/logo_googlemaps.png"};
-            fegmarker.values.push(value);
+	$("#liste > li").remove();
+        $('#map').gmap3({
+            clear: {
+              name:["marker"]
+            }
         });
-        console.dir(fegmarker);
+        $.each( data.data, function( key, value ) {
+            $('#liste').append($('<li/>').append($('<a/>', {    
+                'href': "http://maps.google.com/?saddr="+mylat+","+mylng+"&daddr="+value.latitude+","+value.longitude,
+                'data-transition': 'slide',
+                'text': "FeG "+value.data+" ("+Math.round(value.distance)+" km)"
+            })));
+            $('#liste').listview('refresh');
+            value.options = {icon: "img/logo_googlemaps.png"};
+            /*
+            value.events = {
+                mouseover: function(marker, event, context){
+                  var map = $(this).gmap3("get"),
+                    infowindow = $(this).gmap3({get:{name:"infowindow"}});
+                  if (infowindow){
+                    infowindow.open(map, marker);
+                    infowindow.setContent(context.data);
+                  } else {
+                    $(this).gmap3({
+                      infowindow:{
+                        anchor:marker, 
+                        options:{content: context.data}
+                      }
+                    });
+                  }
+                },
+                mouseout: function(){
+                  var infowindow = $(this).gmap3({get:{name:"infowindow"}});
+                  if (infowindow){
+                    infowindow.close();
+                  }
+                }
+            };
+            */
+           fegmarker.values.push(value);
+        });
+        //console.dir(fegmarker);
 	$('#map').show().gmap3({
+                /**
                 options:{
                    zoom:4,
                    navigationControl: true,
                    scrollwheel: true,
                    streetViewControl: true
-                },		
+                },
+                */
                 marker:fegmarker,
 		autofit:{},
-                /**
-		getgeoloc:{
-			callback : function(latLng){
-			  if (latLng){
-				$(this).gmap3({
-				  marker:{ 
-					latLng:latLng
-				  },
-				  map:{
-					options:{
-					  zoom: 5
-					}
-				  }
-				});
-			  }
-			}
-		},
-		getdistance:{
-			options:{ 
-			  origins:["Marseille"], 
-			  destinations:["Paris"],
-			  travelMode: google.maps.TravelMode.DRIVING
-			},
-			callback: function(results, status){
-			  var html = "";
-			  if (results){
-				for (var i = 0; i < results.rows.length; i++){
-				  var elements = results.rows[i].elements;
-				  for(var j=0; j<elements.length; j++){
-					switch(elements[j].status){
-					  case "OK":
-						html += elements[j].distance.text + " (" + elements[j].duration.text + ")<br />";
-						break;
-					  case "NOT_FOUND":
-						html += "The origin and/or destination of this pairing could not be geocoded<br />";
-						break;
-					  case "ZERO_RESULTS":
-						html += "No route could be found between the origin and destination.<br />";
-						break;
-					}
-				  }
-				} 
-			  } else {
-				html = "error";
-			  }
-			  $("#test").html( html );
-			}
-		}
-                */
-		
 	}).css('border', '1px solid #000000');
     } else {
         alert('Keine Gemeinden gefunden. Bitte erweitere den Umkreis.');
     } 
-	$.mobile.loading('hide');
+    $.mobile.loading('hide');
 }
 
+mylat = 0.00;
+mylng = 0.00;
 function goFeG() {
 	$.mobile.loading('show');
 	$('#map').gmap3({
 	  getgeoloc:{
 		callback : function(latLng){
 		  if (latLng){
+                        mylat = latLng.lat();
+                        mylng = latLng.lng();
 			$(this).gmap3({
 			  marker:{ 
 				latLng:latLng
