@@ -44,13 +44,16 @@ function jsoncallback( data ) {
 	});
         $.each( data.data, function( key, value ) {
             $('#liste').append($('<li/>').append($('<a/>', {    
-                'href': "geo:0,0?q="+value.data+"&z=18",
+                'href': "geo:0,0?q="+value.address+"&z=18",
                 'data-transition': 'slide',
                 'text': "FeG "+value.data+" ("+Math.round(value.distance)+" km)"
             })));
             $('#liste').listview('refresh');
-            value.options = {icon: "img/logo_googlemaps.png"};
-           fegmarker.values.push(value);
+            tmpval = {
+                latLng: [value.latitude,value.longitude],
+                options : {icon: "img/logo_googlemaps.png"}
+            };
+            fegmarker.values.push(tmpval);
         });
 	$('#map').show().gmap3({
                 marker:fegmarker,
@@ -77,11 +80,11 @@ function goFeG() {
 				latLng:latLng
 			  }
 			});
+                        $.getJSON("http://z.sese.de/gofeg/go.php?jsoncallback=?&lat="+latLng.lat()+"&lng="+latLng.lng()+"&dist="+$('#dist').val());
 		  }
 		}
 	  }
 	});
-        $.getJSON("http://z.sese.de/gofeg/go.php?jsoncallback=?&lat="+latLng.lat()+"&lng="+latLng.lng()+"&dist="+$('#dist').val());
 }
         
 $(window).load(function(){
