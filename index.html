@@ -27,9 +27,24 @@ function jsoncallback( data ) {
               name:["marker"]
             }
         });
+	$('#map').gmap3({
+	  getgeoloc:{
+		callback : function(latLng){
+		  if (latLng){
+                        mylat = latLng.lat();
+                        mylng = latLng.lng();
+			$(this).gmap3({
+			  marker:{ 
+				latLng:latLng
+			  }
+			});
+		  }
+		}
+	  }
+	});
         $.each( data.data, function( key, value ) {
             $('#liste').append($('<li/>').append($('<a/>', {    
-                'href': "geo:"+value.latitude+","+value.longitude+"?z=15",
+                'href': "geo:0,0?q="+value.data+"&z=18",
                 'data-transition': 'slide',
                 'text': "FeG "+value.data+" ("+Math.round(value.distance)+" km)"
             })));
@@ -39,10 +54,7 @@ function jsoncallback( data ) {
         });
 	$('#map').show().gmap3({
                 marker:fegmarker,
-		autofit:{},
-                marker:{ 
-                      latLng:[mylat,mylng]
-                }
+		autofit:{}
 	}).css('border', '1px solid #000000');
     } else {
         alert('Keine Gemeinden gefunden. Bitte erweitere den Umkreis.');
@@ -65,11 +77,11 @@ function goFeG() {
 				latLng:latLng
 			  }
 			});
-			$.getJSON("http://z.sese.de/gofeg/go.php?jsoncallback=?&lat="+latLng.lat()+"&lng="+latLng.lng()+"&dist="+$('#dist').val());
 		  }
 		}
 	  }
 	});
+        $.getJSON("http://z.sese.de/gofeg/go.php?jsoncallback=?&lat="+latLng.lat()+"&lng="+latLng.lng()+"&dist="+$('#dist').val());
 }
         
 $(window).load(function(){
