@@ -13,6 +13,7 @@
         height: 350px;
         width: 100%;
     }
+    #details { display: none; }
   </style>
   
 
@@ -44,8 +45,11 @@ function jsoncallback( data ) {
 	});
         $.each( data.data, function( key, value ) {
             $('#liste').append($('<li/>').append($('<a/>', {    
-                'href': "geo:0,0?q="+value.address+"&z=18",
-                'data-transition': 'slide',
+                "href": "#",
+                'href': "javascript:geo:0,0?q="+value.address+"&z=18",
+                //"data-rel": "dialog",
+                //'data-transition': 'slide',
+                "onclick": "$.mobile.changePage( \"#detail\", { role: \"dialog\" } );",
                 'text': "FeG "+value.data+" ("+Math.round(value.distance)+" km)"
             })));
             $('#liste').listview('refresh');
@@ -88,10 +92,13 @@ function goFeG() {
 }
         
 $(window).load(function(){
-    checkConnection();
-    goFeG();
+    document.addEventListener("deviceready", onDeviceReady, false);
 }); 
 
+function onDeviceReady() {
+    checkConnection();
+}
+    
 function checkConnection() {
     var networkState = navigator.connection.type;
     /**
@@ -114,6 +121,8 @@ function checkConnection() {
                 'goFeG',            // title
                 'Okay'                  // buttonName
             );
+    } else {
+        goFeG();
     }
 }
 
@@ -140,7 +149,10 @@ function checkConnection() {
             <div id="map">
             </div>
         </div>
-  
+
+<div id="details">
+    ...
+</div>
 </body>
 
 
