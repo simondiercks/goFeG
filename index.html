@@ -13,7 +13,6 @@
         height: 350px;
         width: 100%;
     }
-    #details { display: none; }
   </style>
   
 
@@ -45,11 +44,11 @@ function jsoncallback( data ) {
 	});
         $.each( data.data, function( key, value ) {
             $('#liste').append($('<li/>').append($('<a/>', {    
-                "href": "#",
-                'href': "javascript:geo:0,0?q="+value.address+"&z=18",
+                //"href": "dialog.html",
+                //'href': "geo:0,0?q="+value.address+"&z=18",
                 //"data-rel": "dialog",
                 //'data-transition': 'slide',
-                "onclick": "$.mobile.changePage( \"#detail\", { role: \"dialog\" } );",
+                "onclick": "popErrorDialog('FeG "+value.data+"','"+value.address+"<br /><a href=\"geo:0,0?q="+value.address+"&z=18\">Navigation starten</a>');",
                 'text': "FeG "+value.data+" ("+Math.round(value.distance)+" km)"
             })));
             $('#liste').listview('refresh');
@@ -92,7 +91,8 @@ function goFeG() {
 }
         
 $(window).load(function(){
-    document.addEventListener("deviceready", onDeviceReady, false);
+    goFeG();
+    //document.addEventListener("deviceready", onDeviceReady, false);
 }); 
 
 function onDeviceReady() {
@@ -126,7 +126,11 @@ function checkConnection() {
     }
 }
 
-
+function popErrorDialog(title, message) {
+      $("#ui-dialog-error div h2.error-title").html(title);
+      $("#ui-dialog-error div p.error-message").html(message);
+      $.mobile.changePage("#ui-dialog-error");
+}
 </script>
 
 
@@ -150,8 +154,16 @@ function checkConnection() {
             </div>
         </div>
 
-<div id="details">
-    ...
+<div data-role="dialog" id="ui-dialog-error">
+	<div data-role="header" data-theme="f">
+		<h1>Details</h1>
+	</div>
+
+	<div data-role="content" data-theme="d">
+		<h2 class="error-title">Blah blah error title blah</h2>
+		<p class="error-message">Blah blah error message blah. Blah blah error message blah. Blah blah error message blah.</p>
+		<a href="#" data-role="button" data-rel="back">Okay</a>
+	</div>
 </div>
 </body>
 
