@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.feg.gofeg"
+        version   = "0.1.1">
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>goFeG</name>
+
+    <description>
+        Freie evangelische Gemeinden in der Nähe finden.
+    </description>
+
+    <author email="simon.diercks@feg.de">
+        Simon Diercks 
+    </author>
+    
+    <feature name="http://api.phonegap.com/1.0/geolocation"/>
+    <feature name="http://api.phonegap.com/1.0/network"/>
+</widget>
