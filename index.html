@@ -48,7 +48,7 @@ function jsoncallback( data ) {
                 //'href': "geo:0,0?q="+value.address+"&z=18",
                 //"data-rel": "dialog",
                 //'data-transition': 'slide',
-                "onclick": "popErrorDialog('FeG "+value.data+"','"+value.address+"<br /><a href=\"geo:0,0?q="+value.address+"&z=18\">Navigation starten</a>');",
+                "onclick": "popErrorDialog('FeG "+value.data+"','"+value.address+"<br /><a href=\"geo:0,0?q="+value.address+"&z=18\" data-role=\"button\">Navigation starten</a>');",
                 'text': "FeG "+value.data+" ("+Math.round(value.distance)+" km)"
             })));
             $('#liste').listview('refresh');
