@@ -92,8 +92,8 @@ function goFeG() {
 }
         
 $(window).load(function(){
-    //goFeG();
-    document.addEventListener("deviceready", onDeviceReady, false);
+    goFeG();
+    //document.addEventListener("deviceready", onDeviceReady, false);
 }); 
 
 function onDeviceReady() {
@@ -130,7 +130,7 @@ function checkConnection() {
 function popErrorDialog(title, message, href) {
       $("#ui-dialog-error div h2.error-title").html(title);
       $("#ui-dialog-error div p.error-message").html(message);
-      $("#ui-dialog-error div a.error-link").href(href);
+      $("#ui-dialog-error div a.error-link").attr("href", href);
       $.mobile.changePage("#ui-dialog-error");
 }
 </script>
@@ -162,8 +162,8 @@ function popErrorDialog(title, message, href) {
 	</div>
 
 	<div data-role="content" data-theme="d">
-		<h2 class="error-title">Blah blah error title blah</h2>
-		<p class="error-message">Blah blah error message blah. Blah blah error message blah. Blah blah error message blah.</p>
+		<h2 class="error-title"></h2>
+		<p class="error-message"></p>
 		<a class="error-link" href="#" data-role="button">Starte Navigation</a>
 		<a href="#" data-role="button" data-rel="back">Zurück</a>
 	</div>
