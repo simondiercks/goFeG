@@ -48,7 +48,7 @@ function jsoncallback( data ) {
                 //'href': "geo:0,0?q="+value.address+"&z=18",
                 //"data-rel": "dialog",
                 //'data-transition': 'slide',
-                "onclick": "popErrorDialog('FeG "+value.data+"','"+value.address+"<br /><a href=\"geo:0,0?q="+value.address+"&z=18\" data-role=\"button\">Navigation starten</a>');",
+                "onclick": "popErrorDialog('FeG "+value.data+"','"+value.address+"','geo:0,0?q="+value.address+"&z=18')",
                 'text': "FeG "+value.data+" ("+Math.round(value.distance)+" km)"
             })));
             $('#liste').listview('refresh');
@@ -91,8 +91,8 @@ function goFeG() {
 }
         
 $(window).load(function(){
-    goFeG();
-    //document.addEventListener("deviceready", onDeviceReady, false);
+    //goFeG();
+    document.addEventListener("deviceready", onDeviceReady, false);
 }); 
 
 function onDeviceReady() {
@@ -126,9 +126,10 @@ function checkConnection() {
     }
 }
 
-function popErrorDialog(title, message) {
+function popErrorDialog(title, message, href) {
       $("#ui-dialog-error div h2.error-title").html(title);
       $("#ui-dialog-error div p.error-message").html(message);
+      $("#ui-dialog-error div a.error-link").href(href);
       $.mobile.changePage("#ui-dialog-error");
 }
 </script>
@@ -162,7 +163,8 @@ function popErrorDialog(title, message) {
 	<div data-role="content" data-theme="d">
 		<h2 class="error-title">Blah blah error title blah</h2>
 		<p class="error-message">Blah blah error message blah. Blah blah error message blah. Blah blah error message blah.</p>
-		<a href="#" data-role="button" data-rel="back">Okay</a>
+		<a class="error-link" href="#" data-role="button">Starte Navigation</a>
+		<a href="#" data-role="button" data-rel="back">Zurück</a>
 	</div>
 </div>
 </body>
