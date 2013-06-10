@@ -44,12 +44,18 @@ function jsoncallback( data ) {
 	  }
 	});
         $.each( data.data, function( key, value ) {
+            var infotext = "FeG "+value.data+"\n"+
+                           value.strasse+"\n"+
+                           value.plz+" "+value.ort+"\n\n"+
+                           value.ver_typ+" "+value.var_zeit+"\n\n"+
+                           "Kontakt: "+value.kontaktperson+"\n";
+                           "Telefon: "+value.telefon+"\n";
             $('#liste').append($('<li/>').append($('<a/>', {    
                 //"href": "dialog.html",
                 //'href': "geo:0,0?q="+value.address+"&z=18",
                 //"data-rel": "dialog",
                 //'data-transition': 'slide',
-                "onclick": "popErrorDialog('FeG "+value.data+"','"+value.address+"','geo:0,0?q="+value.address+"&z=18')",
+                "onclick": "popErrorDialog('FeG "+value.data+"','"+value.address+"','geo:0,0?q="+value.address+"&z=18','"+value.telefon+"','"+value.url+"')",
                 'text': "FeG "+value.data+" ("+Math.round(value.distance)+" km)"
             })));
             $('#liste').listview('refresh');
@@ -127,10 +133,17 @@ function checkConnection() {
     }
 }
 
-function popErrorDialog(title, message, href) {
+function popErrorDialog(title, message, address, tel, url) {
       $("#ui-dialog-error div h2.error-title").html(title);
       $("#ui-dialog-error div p.error-message").html(message);
-      $("#ui-dialog-error div a.error-link").attr("href", href);
+      $("#ui-dialog-error div a.address-link").attr("href", address);
+      $("#ui-dialog-error div a.telefon-link").attr("href", "tel:"+tel);
+      if (url != "") {
+            if (url.indexOf(".") == -1) {
+                url += ".feg.de";
+            }
+            $("#ui-dialog-error div a.url-link").attr("href", url);
+      }
       $.mobile.changePage("#ui-dialog-error");
 }
 </script>
@@ -164,7 +177,9 @@ function popErrorDialog(title, message, href) {
 	<div data-role="content" data-theme="d">
 		<h2 class="error-title"></h2>
 		<p class="error-message"></p>
-		<a class="error-link" href="#" data-role="button">Starte Navigation</a>
+		<a class="telefon-link" href="#" data-role="button">Anrufen</a>
+		<a class="url-link" href="#" data-role="button">Zur Homepage</a>
+		<a class="address-link" href="#" data-role="button">Dorthin navigieren</a>
 		<a href="#" data-role="button" data-rel="back">Zurück</a>
 	</div>
 </div>
