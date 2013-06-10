@@ -55,7 +55,7 @@ function jsoncallback( data ) {
                 //'href': "geo:0,0?q="+value.address+"&z=18",
                 //"data-rel": "dialog",
                 //'data-transition': 'slide',
-                "onclick": "popErrorDialog('FeG "+value.data+"','"+value.address+"','geo:0,0?q="+value.address+"&z=18','"+value.telefon+"','"+value.url+"')",
+                "onclick": "popErrorDialog('FeG "+value.data+"','"+infotext+"','geo:0,0?q="+value.address+"&z=18','"+value.telefon+"','"+value.url+"')",
                 'text': "FeG "+value.data+" ("+Math.round(value.distance)+" km)"
             })));
             $('#liste').listview('refresh');
@@ -140,7 +140,10 @@ function popErrorDialog(title, message, address, tel, url) {
       $("#ui-dialog-error div a.telefon-link").attr("href", "tel:"+tel);
       if (url != "") {
             if (url.indexOf(".") == -1) {
-                url += ".feg.de";
+                url = url+".feg.de";
+            }
+            if (url.indexOf("http://") == -1) {
+                url = "http://"+url;
             }
             $("#ui-dialog-error div a.url-link").attr("href", url);
       }
