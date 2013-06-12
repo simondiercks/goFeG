@@ -44,12 +44,11 @@ function jsoncallback( data ) {
 	  }
 	});
         $.each( data.data, function( key, value ) {
-            var infotext = "FeG "+value.data+"\n"+
-                           value.strasse+"\n"+
-                           value.plz+" "+value.ort+"\n\n"+
-                           value.ver_typ+" "+value.var_zeit+"\n\n"+
-                           "Kontakt: "+value.kontaktperson+"\n";
-                           "Telefon: "+value.telefon+"\n";
+            var infotext = value.strasse+"<br />"+
+                           value.plz+" "+value.ort+"<br /><br />"+
+                           value.ver_typ+" "+value.ver_zeit+"<br /><br />"+
+                           "Kontakt: "+value.kontaktperson+"<br />";
+                           "Telefon: "+value.telefon+"<br />";
             $('#liste').append($('<li/>').append($('<a/>', {    
                 "onclick": "popErrorDialog('FeG "+encodeURI(value.data)+"','"+encodeURI(infotext)+"','geo:0,0?q="+encodeURI(value.address)+"&z=18','"+value.telefon+"','"+value.url+"')",
                 'text': "FeG "+value.data+" ("+Math.round(value.distance)+" km)"
