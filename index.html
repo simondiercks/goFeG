@@ -133,7 +133,7 @@ function checkConnection() {
 
 function popErrorDialog(title, message, address, tel, url) {
       $("#ui-dialog-error div h2.error-title").html(title);
-      $("#ui-dialog-error div p.error-message").html(message);
+      $("#ui-dialog-error div p.error-message").html(decodeURI(message));
       $("#ui-dialog-error div a.address-link").attr("href", address);
       $("#ui-dialog-error div a.telefon-link").attr("href", "tel:"+tel);
       if (url != "") {
