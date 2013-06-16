@@ -23,6 +23,7 @@ function jsoncallback( data ) {
     if (data.success) {
         fegmarker = {"values":[]};
 	$("#liste > li").remove();
+        /**
         $('#map').gmap3({
             clear: {
               name:["marker"]
@@ -43,6 +44,7 @@ function jsoncallback( data ) {
 		}
 	  }
 	});
+        */
         $.each( data.data, function( key, value ) {
             var infotext = value.strasse+"<br />"+
                            value.plz+" "+value.ort+"<br /><br />"+
@@ -60,10 +62,12 @@ function jsoncallback( data ) {
             };
             fegmarker.values.push(tmpval);
         });
+        /**
 	$('#map').show().gmap3({
                 marker:fegmarker,
 		autofit:{}
 	}).css('border', '1px solid #000000');
+        */
     } else {
         alert('Keine Gemeinden gefunden. Bitte erweitere den Umkreis.');
     } 
