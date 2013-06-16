@@ -2,7 +2,7 @@
     <widget xmlns = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.feg.gofeg"
-        version   = "0.3.0">
+        version   = "0.3.1">
 
     <!-- versionCode is optional and Android only -->
 
@@ -76,4 +76,6 @@
     <gap:splash src="res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone" />
     -->
 
+    <access origin="http://127.0.0.1*" />
+    <access origin="http://maps.google.com*" />
 </widget>
