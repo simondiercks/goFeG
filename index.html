@@ -23,7 +23,6 @@ function jsoncallback( data ) {
     if (data.success) {
         fegmarker = {"values":[]};
 	$("#liste > li").remove();
-        /**
         $('#map').gmap3({
             clear: {
               name:["marker"]
@@ -44,7 +43,6 @@ function jsoncallback( data ) {
 		}
 	  }
 	});
-        */
         $.each( data.data, function( key, value ) {
             var infotext = value.strasse+"<br />"+
                            value.plz+" "+value.ort+"<br /><br />"+
@@ -62,12 +60,10 @@ function jsoncallback( data ) {
             };
             fegmarker.values.push(tmpval);
         });
-        /**
 	$('#map').show().gmap3({
                 marker:fegmarker,
 		autofit:{}
 	}).css('border', '1px solid #000000');
-        */
     } else {
         alert('Keine Gemeinden gefunden. Bitte erweitere den Umkreis.');
     } 
@@ -162,12 +158,12 @@ function popErrorDialog(title, message, address, tel, url) {
             <div data-role="content">
                 <form>
                    <label for="slider-0">Maximale Entfernung (km):</label>
-                   <input type="range" name="slider" id="dist" value="50" min="0" max="200"  />
+                   <input type="range" name="slider" id="dist" value="30" min="0" max="250"  />
                 </form>
+                <a href="#" id="go" onclick="goFeG();" data-role="button">Zeige FeGn in meiner Umgebung</a>
                 <p>FeGn in Deiner Nähe:</p>
                 <ul id="liste" data-role="listview" data-inset="true" data-filter="true">
                 </ul>
-                <a href="#" id="go" onclick="goFeG();" data-role="button">Zeige die Karte meiner Umgebung</a>
             </div>
             <div id="map">
             </div>
