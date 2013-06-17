@@ -77,9 +77,9 @@
     -->
     
   <access origin="http://z.sese.de" />
-  <access subdomains="true" origin="http://www.gstatic.com"/>
-  <access subdomains="true" origin="http://www.google.com"/>
-  <access subdomains="true" origin="http://www.googleapis.com"/>    
+  <access subdomains="true" origin="http://gstatic.com"/>
+  <access subdomains="true" origin="http://google.com"/>
+  <access subdomains="true" origin="http://googleapis.com"/>    
   <access origin="http://*.feg.de" browserOnly="true" />
     
 </widget>
