@@ -75,10 +75,14 @@
     <gap:splash src="res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone" />
     -->
   
+  <!--
   <access origin="http://sese.de" />
-  <access subdomains="true" origin="http://gstatic.com"/>
-  <access subdomains="true" origin="http://google.com"/>
-  <access subdomains="true" origin="http://googleapis.com"/>    
+  <access subdomains="true" origin="http://gstatic.com" />
+  <access subdomains="true" origin="http://google.com" />
+  <access subdomains="true" origin="http://googleapis.com" />    
+  <access origin="http://sese.de" />
+  -->
+  <access origin="*" />
   <access subdomains="true" origin="http://feg.de" browserOnly="true" />
     
 </widget>
