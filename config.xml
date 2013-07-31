@@ -17,7 +17,6 @@
     </author>
     
     <feature name="http://api.phonegap.com/1.0/device" />
-    
     <feature name="http://api.phonegap.com/1.0/geolocation"/>
     <feature name="http://api.phonegap.com/1.0/network"/>
     
@@ -77,9 +76,9 @@
     -->
   
   <access origin="http://sese.de" />
-  <access subdomains="true" origin="*gstatic.com"/>
-  <access subdomains="true" origin="*google.com"/>
-  <access subdomains="true" origin="*googleapis.com"/>    
-  <access origin="*feg.de" browserOnly="true" />
+  <access subdomains="true" origin="http://gstatic.com"/>
+  <access subdomains="true" origin="http://google.com"/>
+  <access subdomains="true" origin="http://googleapis.com"/>    
+  <access subdomains="true" origin="http://feg.de" browserOnly="true" />
     
 </widget>
