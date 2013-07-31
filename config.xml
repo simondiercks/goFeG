@@ -2,7 +2,7 @@
     <widget xmlns = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.feg.gofeg"
-        version   = "0.3.1">
+        version   = "0.3.2">
 
     <!-- versionCode is optional and Android only -->
 
@@ -76,12 +76,10 @@
     <gap:splash src="res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone" />
     -->
   
-  <!--    
-  <access origin="*sese.de" />
+  <access origin="http://sese.de" />
   <access subdomains="true" origin="*gstatic.com"/>
   <access subdomains="true" origin="*google.com"/>
   <access subdomains="true" origin="*googleapis.com"/>    
   <access origin="*feg.de" browserOnly="true" />
-  -->
     
 </widget>
