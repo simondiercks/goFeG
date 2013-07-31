@@ -80,6 +80,6 @@
   <access subdomains="true" origin="http://gstatic.com"/>
   <access subdomains="true" origin="http://google.com"/>
   <access subdomains="true" origin="http://googleapis.com"/>    
-  <access origin="http://*.feg.de" browserOnly="true" />
+  <access origin="*feg.de" browserOnly="true" />
     
 </widget>
