@@ -83,6 +83,6 @@
   <access origin="http://sese.de" />
   -->
   <access origin="*" />
-  <access subdomains="true" origin="http://feg.de" browserOnly="true" />
+  <access origin="*feg.de" browserOnly="true" />
     
 </widget>
