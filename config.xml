@@ -75,11 +75,13 @@
     <gap:splash src="res/screen/ios/screen-ipad-landscape.png"     gap:platform="ios"     width="1024" height="768" />
     <gap:splash src="res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone" />
     -->
-    
+  
+  <!--    
   <access origin="*sese.de" />
   <access subdomains="true" origin="*gstatic.com"/>
   <access subdomains="true" origin="*google.com"/>
   <access subdomains="true" origin="*googleapis.com"/>    
   <access origin="*feg.de" browserOnly="true" />
+  -->
     
 </widget>
