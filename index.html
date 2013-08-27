@@ -158,11 +158,11 @@ function popErrorDialog(title, message, address, tel, url) {
             <div data-role="content">
                 <form>
                    <label for="slider-0">Maximale Entfernung (km):</label>
-                   <input type="range" name="slider" id="dist" value="30" min="0" max="250"  />
+                   <input type="range" name="slider" id="dist" value="50" min="0" max="250" />
                 </form>
-                <a href="#" id="go" onclick="goFeG();" data-role="button">Zeige FeGn in meiner Umgebung</a>
-                <p>FeGn in Deiner Nähe:</p>
-                <ul id="liste" data-role="listview" data-inset="true" data-filter="true">
+                <a href="#" id="go" onclick="goFeG();" data-role="button">Zeige Gemeinden in meiner Umgebung</a>
+                <p>Gemeinden in Deiner Nähe:</p>
+                <ul id="liste" data-role="listview" data-inset="true" data-filter="false">
                 </ul>
             </div>
             <div id="map">
